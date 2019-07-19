@@ -1,7 +1,7 @@
 <template>
     <div class="header">
-      <div class="title">Jquery To Do List</div>
-      <div class="description">Simple Todo List with adding and filter by diff status.</div>
+      <b>Jquery To Do List</b>
+      <em>Simple Todo List with adding and filter by diff status.</em>
     </div>
 </template>
 
@@ -12,5 +12,23 @@
 </script>
 
 <style scoped>
+div{
+  width: 500px;
+}
+  b{
+    display: block;
+    font-size: larger;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  em{
+    display: block;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+
 
 </style>
