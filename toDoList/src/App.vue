@@ -1,13 +1,22 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <ListHeader></ListHeader>
+    <ListBody></ListBody>
   </div>
 </template>
 
 <script>
+import HelloWorld from './components/HelloWorld'
+import ListHeader from "./components/ListHeader";
+import ListBody from "./components/ListBody";
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    ListBody,
+    ListHeader,
+    HelloWorld
+  }
 }
 </script>
 
