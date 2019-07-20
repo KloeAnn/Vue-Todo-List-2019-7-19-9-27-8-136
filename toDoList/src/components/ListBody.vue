@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="itemInput">
-      <input class="add" type="text" v-model="item">
+      <input class="add" type="text" v-model="message">
       <button v-on:click="addItem">add</button>
     </div>
     <div class="list">
@@ -9,7 +9,7 @@
         <ol>
           <li v-for="item in  items"  v-on:change="items.length">
             <span>
-              <input type="checkbox">{{item}}
+              <input type="checkbox" v-model="item.checked">{{item.message}}
             </span>
           </li>
         </ol>
@@ -26,14 +26,21 @@
         name: "ListBody",
       data(){
           return {
-            item:'',
+            message:'',
+            checked:false,
+            item:{},
             items:[]
           }
       },
       methods:{
           addItem(){
+            this.item.message=this.message
+            this.item.checked=this.checked
             this.items.push(this.item)
-            console.log(this.item)
+            console.log(this.items)
+            this.item={}
+            this.message=''
+            this.checked=false
           }
       }
     }
