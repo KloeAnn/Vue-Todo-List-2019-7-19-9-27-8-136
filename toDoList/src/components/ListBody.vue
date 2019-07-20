@@ -1,15 +1,17 @@
 <template>
   <div class="body">
-    <div class="input">
-      <input>
-      <button title="add">add</button>
+    <div class="itemInput">
+      <input class="add" type="text" v-model="item">
+      <button v-on:click="addItem">add</button>
     </div>
     <div class="list">
       <div>
         <ol>
-          <li><span><input type="checkbox">homework</span></li>
-          <li><span><input type="checkbox">sport</span></li>
-          <li><span><input type="checkbox">shopping</span></li>
+          <li v-for="item in  items"  v-on:change="items.length">
+            <span>
+              <input type="checkbox">{{item}}
+            </span>
+          </li>
         </ol>
       </div>
       <button>All</button>
@@ -21,7 +23,19 @@
 
 <script>
     export default {
-        name: "ListBody"
+        name: "ListBody",
+      data(){
+          return {
+            item:'',
+            items:[]
+          }
+      },
+      methods:{
+          addItem(){
+            this.items.push(this.item)
+            console.log(this.item)
+          }
+      }
     }
 </script>
 
