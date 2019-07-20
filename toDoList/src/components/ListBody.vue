@@ -6,17 +6,17 @@
     </div>
     <div class="list">
       <div>
-        <ol>
-          <li v-for="item in  items"  v-on:change="items.length">
-            <span>
+        <ol v-on:change="showType">
+          <li v-for="item in items" v-if="item.showItem" >
+            <span >
               <input type="checkbox" v-model="item.checked">{{item.message}}
             </span>
           </li>
         </ol>
       </div>
-      <button>All</button>
-      <button>Active</button>
-      <button>Complete</button>
+      <button @click="showAll">All</button>
+      <button @click="showActive">Active</button>
+      <button @click="showComplete">Complete</button>
     </div>
   </div>
 </template>
@@ -26,6 +26,8 @@
         name: "ListBody",
       data(){
           return {
+            showType:'All',
+            showItem:true,
             message:'',
             checked:false,
             item:{},
@@ -34,6 +36,7 @@
       },
       methods:{
           addItem(){
+            this.item.showItem=this.showItem
             this.item.message=this.message
             this.item.checked=this.checked
             this.items.push(this.item)
@@ -41,7 +44,32 @@
             this.item={}
             this.message=''
             this.checked=false
+            this.showItem=true
+          },
+        showAll(){
+            this.showType='All'
+            for(let i of this.items){
+              i.showItem=true
+            }
+        },
+        showActive(){
+          this.showType='Active'
+          for(let i of this.items){
+            if(!i.checked)
+              i.showItem=false
+            else
+              i.showItem=true
           }
+        },
+        showComplete(){
+          this.showType='Complete'
+          for(let i of this.items){
+            if(i.checked)
+              i.showItem=false
+            else
+              i.showItem=true
+          }
+        }
       }
     }
 </script>
