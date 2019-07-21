@@ -1,22 +1,25 @@
 <template>
   <div class="body">
     <div class="itemInput">
-      <input class="add" type="text" v-model="message">
-      <button v-on:click="addItem">add</button>
+      <input class="addInput" type="text" v-model="message">
+      <button class="addButton" v-on:click="addItem">add</button>
     </div>
     <div class="list">
       <div>
         <ol v-on:change="showType">
           <li v-for="item in items" v-if="item.showItem" >
             <span >
-              <input type="checkbox" v-model="item.checked">{{item.message}}
+              <input class="checkItem" type="checkbox" v-model="item.checked">
+              <input  class="listItem" v-bind:readonly="isReadOnly" type=text v-bind:value="item.message"  @dblclick="changeItem" @keyup.enter="updateItem(item)" >
             </span>
           </li>
         </ol>
       </div>
+      <div class="buttons">
       <button @click="showAll">All</button>
       <button @click="showActive">Active</button>
       <button @click="showComplete">Complete</button>
+        </div>
     </div>
   </div>
 </template>
@@ -26,8 +29,10 @@
         name: "ListBody",
       data(){
           return {
+            isReadOnly:true,
             showType:'All',
             showItem:true,
+            changeMessage:'',
             message:'',
             checked:false,
             item:{},
@@ -69,44 +74,28 @@
             else
               i.showItem=true
           }
+        },
+        changeItem(){
+            this.isReadOnly=false
+        },
+        updateItem(item){
+          this.isReadOnly=true
+          item.message=event.currentTarget.value
         }
       }
     }
 </script>
 
 <style scoped>
-  div{
-    width: 500px;
+ .addInput{
+   padding:0px 10px 0px  15px;
+   margin: 5px 10px 10px  10px
+ }
+  .buttons{
+    text-align: center;
   }
-.add{
-  float: left;
-
-}
-input{
-  padding: 4px 15px 4px 0;
-  width: 80%;
-}
-button{
-  display: inline-block;
-  color:#fc999b;
-  background-color:#ffffff;
-  border-radius: 5px;
-  margin-top:2px;
-  padding: 5px 15px;
-}
-  ol {
-    padding-left: 20px;
+  .listItem{
+    outline: none;
+    border: none;
   }
-
-  ol li {
-    padding: 0px;color:#000;
-  }
-
-
-
-  ol li:nth-child(even){
-    background: #f4ecec;
-  }
-
-
 </style>
