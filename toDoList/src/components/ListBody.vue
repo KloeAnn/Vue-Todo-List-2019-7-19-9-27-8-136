@@ -7,10 +7,10 @@
     <div class="list">
       <div>
         <ol v-on:change="showType">
-          <li v-for="item in items" v-if="item.showItem" >
+          <li v-for="item in items" v-if="item.showItem" @click="this.$forceUpdate()">
             <span >
               <input class="checkItem" type="checkbox" v-model="item.checked">
-              <input  class="listItem" v-bind:readonly="isReadOnly" type=text v-bind:value="item.message"  @dblclick="changeItem" @keyup.enter="updateItem(item)" >
+              <input  :class="item.checked?'grayItem':'blackItem'" v-bind:readonly="isReadOnly" type=text v-bind:value="item.message"  @dblclick="changeItem" @keyup.enter="updateItem(item)" >
             </span>
           </li>
         </ol>
@@ -60,7 +60,7 @@
         showActive(){
           this.showType='Active'
           for(let i of this.items){
-            if(!i.checked)
+            if(i.checked)
               i.showItem=false
             else
               i.showItem=true
@@ -69,7 +69,7 @@
         showComplete(){
           this.showType='Complete'
           for(let i of this.items){
-            if(i.checked)
+            if(!i.checked)
               i.showItem=false
             else
               i.showItem=true
@@ -94,7 +94,18 @@
   .buttons{
     text-align: center;
   }
-  .listItem{
+
+  .blackItem{
+    outline: none;
+    border: none;
+  }
+  .grayItem{
+    text-decoration: line-through;
+    outline: none;
+    border: none;
+    font-color:gray;
+  }
+  .inputItem{
     outline: none;
     border: none;
   }
