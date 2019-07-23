@@ -6,7 +6,7 @@
     </div>
     <div class="list">
       <div>
-        <ol v-on:change="showType">
+        <ol>
           <li v-for="(item,index) in items" v-if="item.showItem" >
             <span >
               <input class="checkItem" type="checkbox" v-model="item.checked">
