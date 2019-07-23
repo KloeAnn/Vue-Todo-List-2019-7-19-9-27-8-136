@@ -7,10 +7,10 @@
     <div class="list">
       <div>
         <ol v-on:change="showType">
-          <li v-for="item in items" v-if="item.showItem" @click="this.$forceUpdate()">
+          <li v-for="(item,index) in items" v-if="item.showItem" >
             <span >
               <input class="checkItem" type="checkbox" v-model="item.checked">
-              <input  :class="item.checked?'grayItem':'blackItem'" v-bind:readonly="isReadOnly" type=text v-bind:value="item.message"  @dblclick="changeItem" @keyup.enter="updateItem(item)" >
+              <input  :class="item.checked?'grayItem':'blackItem'" v-bind:readonly="isReadOnly" type=text v-bind:value="item.message"  @dblclick="changeItem" @keyup.enter="updateItem(index)" >
             </span>
           </li>
         </ol>
@@ -36,16 +36,18 @@
             message:'',
             checked:false,
             item:{},
-            items:[]
+
+           // items:[]
           }
       },
       methods:{
           addItem(){
-            this.item.showItem=this.showItem
-            this.item.message=this.message
-            this.item.checked=this.checked
-            this.items.push(this.item)
-            console.log(this.items)
+            this.$store.commit({
+              type: 'addList',
+              showItem: this.showItem,
+              message:this.message,
+              checked:this.checked
+            })
             this.item={}
             this.message=''
             this.checked=false
@@ -53,35 +55,34 @@
           },
         showAll(){
             this.showType='All'
-            for(let i of this.items){
-              i.showItem=true
-            }
+            this.$store.commit('getAllItems')
         },
         showActive(){
           this.showType='Active'
-          for(let i of this.items){
-            if(i.checked)
-              i.showItem=false
-            else
-              i.showItem=true
-          }
+          this.$store.commit('getActiveItems')
         },
         showComplete(){
           this.showType='Complete'
-          for(let i of this.items){
-            if(!i.checked)
-              i.showItem=false
-            else
-              i.showItem=true
-          }
+          this.$store.commit('getCompleteItems')
         },
         changeItem(){
             this.isReadOnly=false
         },
-        updateItem(item){
+        updateItem(index){
           this.isReadOnly=true
-          item.message=event.currentTarget.value
+          this.item.index=index
+          this.item.message=event.currentTarget.message
+          this.$store.commit({
+            type: 'updateListItem',
+            index: index,
+            message:event.currentTarget.value,
+          })
         }
+      },
+      computed:{
+          items(){
+            return this.$store.state.items
+          }
       }
     }
 </script>
