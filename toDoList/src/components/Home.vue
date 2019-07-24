@@ -34,11 +34,15 @@
       HelloWorld
     },
     beforeRouteLeave (to, from, next) {
-      const answer = window.confirm('Do you really want to leave? ')
-      if (answer) {
+      if(to.path==='/') {
+        const answer = window.confirm('Do you really want to leave? ')
+        if (answer) {
+          next()
+        } else {
+          next(false)
+        }
+      }else {
         next()
-      } else {
-        next(false)
       }
     },
     methods:{
