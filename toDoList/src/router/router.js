@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', component: WelCome },
   { path: '/todo',name:'todo', component: Home },
-  { path:'/user',  component:User}
+  { path:'/user',name:'user', component:User}
 ]
 
 const router = new VueRouter({
