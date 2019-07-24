@@ -9,8 +9,9 @@
         <ol>
           <li v-for="(item,index) in items" v-if="item.showItem" >
             <span >
-              <input class="checkItem" type="checkbox" v-model="item.checked">
+              <input class="checkItem" type="checkbox" v-model="item.checked" v-on:change="changeItemState">
               <input  :class="item.checked?'grayItem':'blackItem'" v-bind:readonly="isReadOnly" type=text v-bind:value="item.message"  @dblclick="changeItem" @keyup.enter="updateItem(index)" >
+              <button @click="deleteListItem(index)">delete</button>
             </span>
           </li>
         </ol>
@@ -79,14 +80,21 @@
           showItem:this.item.showItem,
           checked:this.item.checked
         })
-        // this.$store.commit({
-        //   type: 'updateListItem',
-        //   index: index,
-        //   message:event.currentTarget.value,
-        // })
+      },
+      changeItemState(index){
+        this.item=this.items[index]
+        this.$store.dispatch('updateListItem',{
+          id: this.item.id,
+          message:this.item.message,
+          showItem:this.item.showItem,
+          checked:this.item.checked
+        })
+      },
+      deleteListItem(index){
+        this.item=this.items[index]
+        index=this.item.id
+        this.$store.dispatch('deleteListItem',index)
       }
-
-
     },
     computed:{
       items(){

@@ -21,7 +21,7 @@
       },
       goToList(){
         // if(this.username==='')
-        //   alert("请输入姓名")
+        // alert("请输入姓名")
         // else
         this.$router.push({name:'todo', params: { username: this.username }})
       }

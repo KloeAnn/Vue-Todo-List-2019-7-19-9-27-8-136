@@ -32,5 +32,16 @@ const actions={
       }
     ).catch(e=>alert(e))
   },
+  deleteListItem(context,index){
+    axios.delete(`http://localhost:3001/todos/${index}`).then(
+      response=>{
+        console.log(response.data.id)
+        context.commit(
+          'deleteListItem',
+          response.data.id
+        )
+      }
+    ).catch(e=>alert(e))
+  },
 }
 export default actions

@@ -7,7 +7,7 @@ import User from "../components/User";
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: WelCome },
+  { path: '/', name:'welcome',component: WelCome },
   { path: '/todo',name:'todo', component: Home },
   { path:'/user',name:'user', component:User}
 ]

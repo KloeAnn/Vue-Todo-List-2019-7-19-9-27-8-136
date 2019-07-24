@@ -33,9 +33,12 @@
       ListHeader,
       HelloWorld
     },
-    data(){
-      return{
-
+    beforeRouteLeave (to, from, next) {
+      const answer = window.confirm('Do you really want to leave? ')
+      if (answer) {
+        next()
+      } else {
+        next(false)
       }
     },
     methods:{
@@ -43,18 +46,10 @@
         this.$store.dispatch('getList')
       },
       goToUser(){
-        this.$router.push({path:'/user',query:{username}})
+        this.$router.push({name: 'user', params: { username: this.username }})
       },
       goToMain(){
-        console.log(this.$route.params.username)
-        var res=confirm("确定返回欢迎界面吗？")
-        if(res)
-        {
-          alert("欢迎")
           this.$router.go(-1)
-        }else {
-
-        }
       }
     },
     mounted() {

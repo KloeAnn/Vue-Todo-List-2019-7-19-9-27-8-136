@@ -38,6 +38,7 @@
     },
     computed:{
       username(){
+        console.log(this.$route.params.username)
         return this.$route.params.username
       }
     }

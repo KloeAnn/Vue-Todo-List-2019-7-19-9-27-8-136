@@ -32,8 +32,10 @@ const mutations={
         })
       },
       updateListItem(state,item){
-
         state.items[item.id-1]=item
+      },
+      deleteListItem(state,id){
+        state.items.splice(id-1,1)
       }
 }
 export default mutations
