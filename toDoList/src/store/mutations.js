@@ -1,6 +1,10 @@
 import state from "./state";
 
 const mutations={
+      getList(state,items){
+        state.items.length=0
+        state.items.push(...items)
+      },
       addList(state,item){
         state.items.push(item)
       },
@@ -29,8 +33,7 @@ const mutations={
       },
       updateListItem(state,item){
 
-        state.items[item.index].message=item.message
-
+        state.items[item.id-1]=item
       }
 }
 export default mutations

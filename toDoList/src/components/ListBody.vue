@@ -25,10 +25,12 @@
 </template>
 
 <script>
+    const axios = require('axios');
     export default {
         name: "ListBody",
       data(){
           return {
+            displayList:[],
             isReadOnly:true,
             showType:'All',
             showItem:true,
@@ -36,17 +38,16 @@
             message:'',
             checked:false,
             item:{},
-
+            info:null
            // items:[]
           }
       },
       methods:{
           addItem(){
-            this.$store.commit({
-              type: 'addList',
-              showItem: this.showItem,
-              message:this.message,
-              checked:this.checked
+            this.$store.dispatch('addListItem',{
+                showItem: this.showItem,
+                message:this.message,
+                checked:this.checked
             })
             this.item={}
             this.message=''
@@ -70,20 +71,28 @@
         },
         updateItem(index){
           this.isReadOnly=true
-          this.item.index=index
-          this.item.message=event.currentTarget.message
-          this.$store.commit({
-            type: 'updateListItem',
-            index: index,
-            message:event.currentTarget.value,
+          this.item=this.items[index]
+          this.item.message=event.currentTarget.value
+          this.$store.dispatch('updateListItem',{
+            id: this.item.id,
+            message:this.item.message,
+            showItem:this.item.showItem,
+            checked:this.item.checked
           })
+          // this.$store.commit({
+          //   type: 'updateListItem',
+          //   index: index,
+          //   message:event.currentTarget.value,
+          // })
         }
-      },
+
+
+  },
       computed:{
           items(){
             return this.$store.state.items
           }
-      }
+      },
     }
 </script>
 

@@ -1,22 +1,13 @@
 <template>
   <div id="app">
-    <ListHeader></ListHeader>
-    <br>
-    <ListBody></ListBody>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import ListHeader from "./components/ListHeader";
-import ListBody from "./components/ListBody";
-
 export default {
   name: 'App',
   components: {
-    ListBody,
-    ListHeader,
-    HelloWorld
   }
 }
 </script>
