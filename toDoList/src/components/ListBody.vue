@@ -109,19 +109,4 @@
     display: block;
     float: left;
   }
-
-  .blackItem{
-    outline: none;
-    border: none;
-  }
-  .grayItem{
-    text-decoration: line-through;
-    outline: none;
-    border: none;
-    font-color:gray;
-  }
-  .inputItem{
-    outline: none;
-    border: none;
-  }
 </style>

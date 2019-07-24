@@ -1,9 +1,7 @@
 <template>
   <div>
-    <input class="userNameInput" placeholder="输入你的名字" v-model="username">
-    <p>
-      <button @click="goToList">开始使用</button>
-    </p>
+    <el-input placeholder="Please input" v-model="username"></el-input>
+    <el-button type="primary" @click="goToList">开始使用</el-button>
   </div>
 </template>
 
@@ -16,14 +14,11 @@
       }
     },
     methods:{
-      getUserName(){
-        this.username=event.target.value
-      },
       goToList(){
         // if(this.username==='')
         // alert("请输入姓名")
         // else
-        this.$router.push({name:'todo', params: { username: this.username }})
+        this.$router.push({name:'home'})
       }
     }
   }
@@ -33,12 +28,9 @@
   div{
     display: inline-block;
     background: white;
-    width: 600px;
-    height: 200px;
-    margin-top: 20px;
+    width: 650px;
     text-align: center;
     border: 5px solid white;
     border-radius: 5px;
   }
-
 </style>

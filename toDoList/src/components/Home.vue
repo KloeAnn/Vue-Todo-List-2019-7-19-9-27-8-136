@@ -1,70 +1,63 @@
 <template>
   <div class="page">
     <div class="left">
-      <button class="return" @click="goToMain">
-        return
-      </button>
-      <button class="home" >
-        Home
-      </button>
-      <button class="user" @click="goToUser">
-        User
-      </button>
+      <el-menu :span="20" :router="true">
+        <el-menu-item index="todo">
+          <span>todo</span>
+        </el-menu-item>
+        <el-menu-item index="user">
+          <span>user</span>
+        </el-menu-item>
+      </el-menu>
     </div>
     <div class="right">
-
-      <p>{{username}}</p>
-      <ListHeader></ListHeader>
-      <br>
-      <ListBody></ListBody>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
   import HelloWorld from './HelloWorld'
-  import ListHeader from "./ListHeader";
-  import ListBody from "./ListBody";
+  import ToDoList from './ToDoList'
 
   export default {
     name: 'Home',
     components: {
-      ListBody,
-      ListHeader,
+      ToDoList,
       HelloWorld
     },
-    beforeRouteLeave (to, from, next) {
-      if(to.path==='/') {
+    beforeRouteLeave(to, from, next) {
+      if (to.path === '/') {
         const answer = window.confirm('Do you really want to leave? ')
         if (answer) {
           next()
         } else {
           next(false)
         }
-      }else {
+      } else {
         next()
       }
     },
-    methods:{
-      getItemList(){
+    methods: {
+      getItemList() {
         this.$store.dispatch('getList')
       },
-      goToUser(){
-        this.$router.push({name: 'user', params: { username: this.username }})
+      goToUser() {
+        this.$router.push({name: 'user', params: {username: this.username}})
       },
-      goToMain(){
-          this.$router.go(-1)
+      goToMain() {
+        this.$router.go(-1)
       }
     },
     mounted() {
       console.log(this.items)
       this.getItemList()
     },
-    computed:{
-      items(){
+    computed: {
+      items() {
         return this.$store.state.items
       },
-      username () {
+      username() {
         return this.$route.params.username
       }
     },
@@ -72,7 +65,7 @@
 </script>
 
 <style scoped>
-  .page{
+  .page {
     display: inline-block;
     background: white;
     width: 600px;
@@ -82,29 +75,15 @@
     border: 5px solid white;
     border-radius: 5px;
   }
-  .left{
-    width:50px;
-    float:left;
+
+  .left {
+    width: 100px;
+    float: left;
   }
-  .return{
-    display: block;
-    height: 30px;
-    margin: 30px 0;
+
+  .right {
+    margin-left: 100px;
   }
-  .home{
-    display: block;
-    height: 30px;
-    margin: 30px 0;
-  }
-  .user{
-    display: block;
-    height: 30px;
-    margin: 30px 0;
-  }
-  .right{
-    margin-left:50px;
-  }
-  .return{
-    float: right;
-  }
+
+
 </style>
